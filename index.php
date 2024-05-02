@@ -55,7 +55,69 @@
                 quaerat nemo nam, consequuntur nisi alias in praesentium. Fuga amet esse nam doloremque ut nemo nostrum.
             </p>
         </section>
-        <?php //@todo Add a contact form  ?>
+        <section class="form">
+            <h2 id="getintouch"> Get in touch</h2>
+            
+            <?php
+
+            $errors = [];
+
+            if (!empty($_POST)){
+                $data = array_map('htmlentities', $_POST);
+            }
+ 
+
+            if (!empty($data)) {
+                if (!$data['name']) {
+                    $errors[] = "Name field is empty <br>"; 
+                }
+                if (!$data['email']) {
+                    $errors[] = "Mail field is empty <br>";
+                }
+                if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                    $errors[] = "Mail is not valide <br>";
+                }
+            }               
+            
+                if (!empty($_POST) && empty($errors)) {
+                    header("Location: valideform.php");
+                    exit;
+                }
+
+                if (empty($errors)){
+                    echo '<p>Leave us a message and we will get back to you as soon as possible.</p>';  
+                } else {
+                    foreach ($errors as $error){
+                        echo $error;
+                    }
+                }
+
+
+            ?>
+            <form method="post">
+                <div class="formbtn">
+                    <label for="name">Name *</label>
+                    <input type="text" name="name">
+                </div>
+                <div class="formbtn">
+                    <label for="email">Email *</label>
+                    <input type="text" name="email">
+                </div>
+                <div class="formbtn">
+                    <label for="subject">Subject *</label>
+                    <select name="subject">
+                        <option valeur="rdv">Appoint Rendez-vous</option>
+                        <option value="msg">Message the team</option>
+                        <option value="newsletter">Newsletter feedback</option>
+                    </select>
+                </div>
+                <div class="formmsg">
+                    <label for="message">Submite</label>
+                    <input type="text" name="message">
+                </div>
+                <input class="validatebtn" type="submit" value="Valider">
+            </form>
+        </section>
     </main>
     <?php include '_footer.php' ?>
 </body>

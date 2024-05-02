@@ -39,3 +39,9 @@ img {
     margin: auto;
     padding: 0 var(--spacing);
 }
+
+.form {
+    max-width: 60ch;
+    margin: auto;
+    padding: 0 var(--spacing);
+}
